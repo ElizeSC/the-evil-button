@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Do Not Press The Button</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #111;
+            color: white;
+            font-family: 'Comic Sans MS', sans-serif;
+            user-select: none;
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 18px;
+            font-family: 'Comic Sans MS', sans-serif;
+            border-radius: 15px;
+            background: hotpink;
+            color: aliceblue;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        button:hover {
+            background: crimson;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+<h2 id="message">Do not press the button.</h2>
+<button id="evilButton">Button</button>
+
+<script>
+    const button = document.getElementById('evilButton');
+    const message = document.getElementById('message');
+
+    // --- Proximity warning ---
+    document.addEventListener('mousemove', (event) => {
+        const rect = button.getBoundingClientRect();
+        const dx = event.clientX - (rect.left + rect.width / 2);
+        const dy = event.clientY - (rect.top + rect.height / 2);
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 200 && distance > 80) {
+            message.textContent = "Hey! Don’t even think about it!!";
+        } else if (distance <= 80) {
+            message.textContent = "No!!! I am warning you!!!!";
+        } else {
+            message.textContent = "Do not press the button.";
+        }
+    });
+
+    // --- Button interactions ---
+    button.addEventListener('mousedown', () => {
+        message.textContent = "You dare press me?!";
+    });
+
+    button.addEventListener('click', () => {
+        document.body.style.color = 'crimson';
+
+        message.textContent = "I warned you... you forced me to do this...";
+        setTimeout(() => message.textContent = "Removing System32...", 2000);
+        setTimeout(() => message.textContent = "Just kidding lol", 4000);
+        setTimeout(() => message.textContent = "But listen to instructions next time, okay?", 6000);
+    });
+
+    button.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        message.textContent = "Wrong click buddy, use the left one.";
+    });
+</script>
+
+</body>
+</html>
