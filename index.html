@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Do Not Press The Button</title>
+    <title>the evil button</title>
     <style>
         body {
             height: 100vh;
@@ -49,10 +49,13 @@
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance < 200 && distance > 80) {
-            message.textContent = "Hey! Don’t even think about it!!";
+            document.body.style.color = 'white';
+            message.textContent = "Hey! Don't even think about it!!";
         } else if (distance <= 80) {
+            document.body.style.color = 'orange';
             message.textContent = "No!!! I am warning you!!!!";
         } else {
+            document.body.style.color = 'white';
             message.textContent = "Do not press the button.";
         }
     });
